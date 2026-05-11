@@ -6,6 +6,7 @@
 	"description": "Pi coding agent launcher with pinned extensions and pi-backup skills",
 	"scripts": {
 		"start": "node --import tsx ./src/index.ts",
+		"rpc": "node --import tsx ./src/index.ts rpc",
 		"build": "tsc -p tsconfig.json",
 		"start:dist": "node dist/index.js"
 	},

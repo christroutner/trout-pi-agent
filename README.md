@@ -49,9 +49,19 @@ Override paths with environment variables (see [`.env.example`](.env.example)).
 
 ## Run
 
+**Interactive TUI** (default):
+
 ```bash
 npm start
 ```
+
+**JSON-RPC** (stdin/stdout protocol; same extensions and `cwd` as TUI):
+
+```bash
+npm run rpc
+```
+
+See Pi’s [RPC documentation](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/rpc.md).
 
 Uses `node --import tsx` so TypeScript runs without a separate build step. Optional: `npm run build` then `npm run start:dist`.
 

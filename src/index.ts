@@ -10,6 +10,7 @@ import {
 	getAgentDir,
 	initTheme,
 	InteractiveMode,
+	runRpcMode,
 	SessionManager,
 } from "@earendil-works/pi-coding-agent";
 import { resolvePaths, validatePaths } from "./paths.js";
@@ -33,7 +34,12 @@ function reportDiagnostics(diagnostics: readonly AgentSessionRuntimeDiagnostic[]
 	}
 }
 
+function isRpcMode(): boolean {
+	return process.argv[2] === "rpc";
+}
+
 async function main(): Promise<void> {
+	const rpc = isRpcMode();
 	const paths = resolvePaths();
 
 	process.env.PI_MEMORY_DIR = paths.memoryDir;
@@ -49,10 +55,11 @@ async function main(): Promise<void> {
 		process.exit(1);
 	}
 
-	console.log("trout-pi-agent paths:");
-	console.log(`  PI_BACKUP_ROOT (cwd)=${paths.piBackupRoot}`);
-	console.log(`  PI_MEMORY_DIR=${paths.memoryDir}`);
-	console.log(`  Extensions: ${paths.extensionPaths.piMemoryIndex} → … → ${paths.extensionPaths.piScheduler}`);
+	const logInfo = rpc ? console.error.bind(console) : console.log.bind(console);
+	logInfo("trout-pi-agent paths:");
+	logInfo(`  PI_BACKUP_ROOT (cwd)=${paths.piBackupRoot}`);
+	logInfo(`  PI_MEMORY_DIR=${paths.memoryDir}`);
+	logInfo(`  Extensions: ${paths.extensionPaths.piMemoryIndex} → … → ${paths.extensionPaths.piScheduler}`);
 
 	if (!process.env.TELEGRAM_BOT_TOKEN?.trim()) {
 		console.warn("Warning: TELEGRAM_BOT_TOKEN is unset — pi-telegram-extension will fail until it is set.");
@@ -119,7 +126,12 @@ async function main(): Promise<void> {
 		process.exit(1);
 	}
 
-	initTheme(settingsManager.getTheme(), true);
+	initTheme(settingsManager.getTheme(), !rpc);
+
+	if (rpc) {
+		await runRpcMode(runtime);
+		return;
+	}
 
 	const interactiveMode = new InteractiveMode(runtime, {
 		migratedProviders: [],

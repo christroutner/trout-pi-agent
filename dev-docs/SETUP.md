@@ -174,6 +174,15 @@ npm start
 
 You should get the Pi TUI with `cwd` set to `pi-backup`. If extension paths fail, the process prints errors before exit; fix paths or run the missing `npm install` / `npm run build` steps above.
 
+**Headless JSON-RPC** (stdin/stdout; no TUI):
+
+```bash
+cd ~/work/trout-pi-agent
+npm run rpc
+```
+
+Use this when embedding the agent in another process; see the Pi coding agent RPC docs in the monorepo.
+
 ## 11. Quick verification checklist
 
 ```bash
