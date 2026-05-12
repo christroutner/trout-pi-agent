@@ -13,6 +13,7 @@ export function buildResourceLoaderOptions(paths: ResolvedPaths) {
 		paths.extensionPaths.braveSearch,
 		paths.extensionPaths.webFetch,
 		paths.extensionPaths.piScheduler,
+		paths.extensionPaths.piMcpAdapter,
 	];
 
 	const additionalSkillPaths = listSkillDirectories(paths.skillsRoot);

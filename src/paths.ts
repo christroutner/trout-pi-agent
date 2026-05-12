@@ -16,6 +16,7 @@ export interface ResolvedPaths {
 	piBackupRoot: string;
 	piTelegramExtensionRoot: string;
 	piMemoryRepoRoot: string;
+	piMcpAdapterRoot: string;
 	memoryDir: string;
 	extensionPaths: {
 		piMemoryIndex: string;
@@ -23,6 +24,7 @@ export interface ResolvedPaths {
 		braveSearch: string;
 		webFetch: string;
 		piScheduler: string;
+		piMcpAdapter: string;
 	};
 	agentsMdPath: string;
 	skillsRoot: string;
@@ -32,6 +34,7 @@ export function resolvePaths(): ResolvedPaths {
 	const piBackupRoot = envPath("PI_BACKUP_ROOT", "../pi-backup");
 	const piTelegramExtensionRoot = envPath("PI_TELEGRAM_EXTENSION_ROOT", "../pi-telegram-extension");
 	const piMemoryRepoRoot = envPath("PI_MEMORY_ROOT", "../pi-memory");
+	const piMcpAdapterRoot = envPath("PI_MCP_ADAPTER_ROOT", "../pi-mcp-adapter");
 
 	const memoryDirRaw = process.env.PI_MEMORY_DIR?.trim();
 	const memoryDir = memoryDirRaw
@@ -44,6 +47,7 @@ export function resolvePaths(): ResolvedPaths {
 		piBackupRoot,
 		piTelegramExtensionRoot,
 		piMemoryRepoRoot,
+		piMcpAdapterRoot,
 		memoryDir,
 		extensionPaths: {
 			piMemoryIndex: join(piMemoryRepoRoot, "index.ts"),
@@ -51,6 +55,7 @@ export function resolvePaths(): ResolvedPaths {
 			braveSearch: join(piBackupRoot, "extensions", "brave-search.ts"),
 			webFetch: join(piBackupRoot, "extensions", "web-fetch.ts"),
 			piScheduler: join(piBackupRoot, "extensions", "pi-scheduler.ts"),
+			piMcpAdapter: join(piMcpAdapterRoot, "index.ts"),
 		},
 		agentsMdPath: join(piBackupRoot, "config", "AGENTS.md"),
 		skillsRoot: join(piBackupRoot, "skills"),
@@ -89,6 +94,7 @@ export function validatePaths(paths: ResolvedPaths): string[] {
 		["brave-search", paths.extensionPaths.braveSearch],
 		["web-fetch", paths.extensionPaths.webFetch],
 		["pi-scheduler", paths.extensionPaths.piScheduler],
+		["pi-mcp-adapter", paths.extensionPaths.piMcpAdapter],
 	] as const) {
 		check(existsSync(p), `pi-backup extension missing (${label}): ${p}`);
 	}

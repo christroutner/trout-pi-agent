@@ -12,6 +12,7 @@ Clone or place these directories **next to each other** (siblings):
 | `pi-backup` | Agent project (`extensions/`, `skills/`, `memory/`, `config/AGENTS.md`) |
 | `pi-telegram-extension` | Telegram bridge (must be built: `dist/index.js`) |
 | `pi-memory` | Memory extension (`index.ts`) |
+| `pi-mcp-adapter` | MCP adapter (`index.ts`) — provides `mcp()` proxy tool for SSH terminals, databases, etc. |
 
 Override paths with environment variables (see [`.env.example`](.env.example)).
 
@@ -39,7 +40,14 @@ Override paths with environment variables (see [`.env.example`](.env.example)).
    npm run build
    ```
 
-4. **Copy env and set secrets**
+4. **`pi-mcp-adapter` dependencies**
+
+   ```bash
+   cd ../pi-mcp-adapter
+   npm install
+   ```
+
+5. **Copy env and set secrets**
 
    ```bash
    cd ../trout-pi-agent
@@ -74,6 +82,7 @@ Uses `node --import tsx` so TypeScript runs without a separate build step. Optio
 3. `pi-backup/extensions/brave-search.ts`
 4. `pi-backup/extensions/web-fetch.ts`
 5. `pi-backup/extensions/pi-scheduler.ts`
+6. `pi-mcp-adapter/index.ts` — registers an `mcp()` proxy tool (see [pi-mcp-adapter docs](https://pi.dev/packages/pi-mcp-adapter))
 
 **Skills:** every subdirectory of `pi-backup/skills` that contains a `SKILL.md`.
 
@@ -90,6 +99,7 @@ Uses `node --import tsx` so TypeScript runs without a separate build step. Optio
 | `PI_BACKUP_ROOT` | Default: `../pi-backup` (relative to this package). |
 | `PI_TELEGRAM_EXTENSION_ROOT` | Default: `../pi-telegram-extension`. |
 | `PI_MEMORY_ROOT` | Default: `../pi-memory`. |
+| `PI_MCP_ADAPTER_ROOT` | Default: `../pi-mcp-adapter`. |
 | `PI_MEMORY_DIR` | Memory store for pi-memory. Default: `$PI_BACKUP_ROOT/memory`. |
 | `TELEGRAM_BOT_TOKEN` | Required for Telegram polling (extension logs an error if missing). |
 | `TELEGRAM_ALLOWED_USER_IDS` | Comma-separated Telegram user IDs (optional). |
@@ -113,7 +123,7 @@ Then build that package so `dist/` exists (e.g. its `npm run build` in the monor
 ## Manual verification
 
 - [ ] `npm start` opens the Pi TUI with cwd tied to `pi-backup`.
-- [ ] No unexpected extensions from `~/.pi` (only the five listed above).
+- [ ] No unexpected extensions from `~/.pi` (only the six listed above).
 - [ ] Skills from `pi-backup/skills` appear (Ctrl+O / startup help as in Pi).
 - [ ] With `PI_MEMORY_DIR` pointing at `pi-backup/memory`, memory tools write under that tree.
 - [ ] With `TELEGRAM_BOT_TOKEN` set, startup shows Telegram connected (see pi-telegram-extension docs).
