@@ -16,6 +16,7 @@
 	"dependencies": {
 		"@earendil-works/pi-coding-agent": "^0.74.0",
 		"dotenv": "^16.4.5",
+		"mcp-interactive-terminal": "^1.0.9",
 		"tsx": "^4.19.2"
 	},
 	"devDependencies": {
