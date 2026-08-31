@@ -174,14 +174,32 @@ npm start
 
 You should get the Pi TUI with `cwd` set to `pi-backup`. If extension paths fail, the process prints errors before exit; fix paths or run the missing `npm install` / `npm run build` steps above.
 
-**Headless JSON-RPC** (stdin/stdout; no TUI):
+**Background bot (pm2 + tmux)** — recommended when Telegram is the primary chat and you want the process to restart on crash or reboot. `tmux` must be installed (`sudo apt install tmux`).
+
+```bash
+cd ~/work/trout-pi-agent
+chmod +x devops-bot.sh watch-bot.sh
+pm2 start ./devops-bot.sh --name trout-pi
+pm2 save
+pm2 startup   # follow the printed systemd command once per machine
+```
+
+Attach to the Pi TUI:
+
+```bash
+./watch-bot.sh
+```
+
+Detach with `Ctrl-b` then `d` (bot keeps running). Stop/restart with `pm2 stop trout-pi` / `pm2 restart trout-pi`.
+
+**JSON-RPC** (stdin/stdout; no TUI — for embedding, not for watching):
 
 ```bash
 cd ~/work/trout-pi-agent
 npm run rpc
 ```
 
-Use this when embedding the agent in another process; see the Pi coding agent RPC docs in the monorepo.
+See the Pi coding agent RPC docs in the monorepo.
 
 ## 11. Quick verification checklist
 

@@ -57,13 +57,40 @@ Override paths with environment variables (see [`.env.example`](.env.example)).
 
 ## Run
 
-**Interactive TUI** (default):
+**Interactive TUI** (foreground):
 
 ```bash
 npm start
 ```
 
-**JSON-RPC** (stdin/stdout protocol; same extensions and `cwd` as TUI):
+**Background bot (pm2 + tmux)** — Telegram stays the chat surface; the Pi TUI runs in a detached tmux session so it survives logout and pm2 can restart it on crash or reboot:
+
+```bash
+pm2 start ./devops-bot.sh --name trout-pi
+pm2 save   # persist the process list for `pm2 startup`
+```
+
+Watch the TUI (does not start or stop the bot):
+
+```bash
+./watch-bot.sh
+```
+
+Detach with `Ctrl-b` then `d`. Do not `Ctrl-c` in the TUI unless you want the agent to exit (pm2 will restart it). `pm2 logs` will be nearly empty; the transcript lives in tmux.
+
+Override the tmux session name with `TROUT_PI_TMUX_SESSION` (default: `trout-pi`).
+
+Pi works in tmux; on Ubuntu add to `~/.tmux.conf` then fully restart tmux (`tmux kill-server`):
+
+```tmux
+set -g mouse on
+set -g extended-keys on
+set -g extended-keys-format csi-u
+```
+
+`extended-keys-format csi-u` needs tmux 3.5+.
+
+**JSON-RPC** (stdin/stdout protocol; same extensions and `cwd` as TUI — for embedding, not for watching):
 
 ```bash
 npm run rpc
