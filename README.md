@@ -80,15 +80,12 @@ Detach with `Ctrl-b` then `d`. Do not `Ctrl-c` in the TUI unless you want the ag
 
 Override the tmux session name with `TROUT_PI_TMUX_SESSION` (default: `trout-pi`).
 
-Pi works in tmux; on Ubuntu add to `~/.tmux.conf` then fully restart tmux (`tmux kill-server`):
+The launch scripts turn on `mouse` for this session so the wheel scrolls Pi (or tmux pane history). Optional `~/.tmux.conf` for modified keys in other tmux sessions (tmux 3.5+ for `csi-u`):
 
 ```tmux
-set -g mouse on
 set -g extended-keys on
 set -g extended-keys-format csi-u
 ```
-
-`extended-keys-format csi-u` needs tmux 3.5+.
 
 **JSON-RPC** (stdin/stdout protocol; same extensions and `cwd` as TUI — for embedding, not for watching):
 

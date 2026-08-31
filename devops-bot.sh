@@ -37,6 +37,14 @@ trap cleanup EXIT INT TERM
 # Size matters when nobody is attached yet (tmux default is 80x24).
 tmux new-session -d -s "$SESSION" -c "$ROOT" -x 160 -y 48 "$INNER_CMD"
 
+# Session-scoped (not ~/.tmux.conf): wheel events reach the pane instead of
+# being dropped. When Pi has mouse tracking on, tmux passes them through;
+# otherwise the wheel scrolls tmux pane history (copy-mode).
+tmux set-option -t "$SESSION" mouse on
+tmux set-option -t "$SESSION" history-limit 50000
+tmux set-option -t "$SESSION" extended-keys on
+tmux set-option -t "$SESSION" extended-keys-format csi-u 2>/dev/null || true
+
 echo "trout-pi tmux session '${SESSION}' started (InteractiveMode)"
 
 # Block until the tmux session ends so pm2 tracks the bot's lifetime.

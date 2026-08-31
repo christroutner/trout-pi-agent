@@ -17,4 +17,10 @@ if ! tmux has-session -t "$SESSION" 2>/dev/null; then
 	exit 1
 fi
 
+# Apply even if the session was created before devops-bot.sh set these.
+tmux set-option -t "$SESSION" mouse on
+tmux set-option -t "$SESSION" history-limit 50000
+tmux set-option -t "$SESSION" extended-keys on
+tmux set-option -t "$SESSION" extended-keys-format csi-u 2>/dev/null || true
+
 exec tmux attach-session -t "$SESSION"
