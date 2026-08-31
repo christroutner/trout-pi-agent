@@ -2,7 +2,6 @@ import "dotenv/config";
 import { mkdirSync } from "node:fs";
 import {
 	type AgentSessionRuntimeDiagnostic,
-	AuthStorage,
 	createAgentSessionFromServices,
 	createAgentSessionRuntime,
 	type CreateAgentSessionRuntimeFactory,
@@ -66,7 +65,6 @@ async function main(): Promise<void> {
 	}
 
 	const agentDir = getAgentDir();
-	const authStorage = AuthStorage.create();
 	const resourceLoaderOptions = buildResourceLoaderOptions(paths);
 
 	const createRuntime: CreateAgentSessionRuntimeFactory = async ({
@@ -78,10 +76,9 @@ async function main(): Promise<void> {
 		const services = await createAgentSessionServices({
 			cwd,
 			agentDir: ad,
-			authStorage,
 			resourceLoaderOptions,
 		});
-		const { settingsManager, modelRegistry, resourceLoader } = services;
+		const { settingsManager, resourceLoader } = services;
 
 		const settingsErrors = settingsManager.drainErrors();
 		const diagnostics: AgentSessionRuntimeDiagnostic[] = [

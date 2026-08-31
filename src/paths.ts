@@ -25,7 +25,6 @@ export interface ResolvedPaths {
 		webFetch: string;
 		piScheduler: string;
 		piMcpAdapter: string;
-		sessionTokens: string;
 	};
 	agentsMdPath: string;
 	skillsRoot: string;
@@ -57,7 +56,6 @@ export function resolvePaths(): ResolvedPaths {
 			webFetch: join(piBackupRoot, "extensions", "web-fetch.ts"),
 			piScheduler: join(piBackupRoot, "extensions", "pi-scheduler.ts"),
 			piMcpAdapter: join(piMcpAdapterRoot, "index.ts"),
-		sessionTokens: join(piBackupRoot, "extensions", "session-tokens.ts"),
 		},
 		agentsMdPath: join(piBackupRoot, "config", "AGENTS.md"),
 		skillsRoot: join(piBackupRoot, "skills"),

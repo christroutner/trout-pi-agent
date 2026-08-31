@@ -14,7 +14,6 @@ export function buildResourceLoaderOptions(paths: ResolvedPaths) {
 		paths.extensionPaths.webFetch,
 		paths.extensionPaths.piScheduler,
 		paths.extensionPaths.piMcpAdapter,
-		paths.extensionPaths.sessionTokens,
 	];
 
 	const additionalSkillPaths = listSkillDirectories(paths.skillsRoot);
