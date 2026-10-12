@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# pm2 entrypoint: run the Vest pi-agent in RPC mode inside a detached tmux
-# session so the bot has a real TTY and its output is watchable (watch-bot.sh).
-# This script stays in the foreground so pm2 can restart it on crash or reboot.
+# pm2 entrypoint: run the Vest pi-agent TUI inside a detached tmux session so
+# the bot has a real TTY to render into, and is interactively watchable via
+# watch-bot.sh. This script stays in the foreground so pm2 can restart it on
+# crash or reboot.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -21,11 +22,11 @@ fi
 
 NODE="$(command -v node)"
 
-# The trailing `rpc` argument is required: src/index.ts's isRpcMode() checks
-# process.argv[2] === "rpc". Without it Pi starts its full interactive TUI
-# instead of the JSON-RPC loop. Keep this in sync with `npm run rpc`.
-PI_MODE="rpc"
-INNER_CMD="exec $(printf '%q' "$NODE") --import tsx ./src/index.ts $PI_MODE"
+# Despite the script name, we deliberately launch the full interactive TUI,
+# NOT RPC mode. src/index.ts's isRpcMode() only returns true when argv[2] is
+# the literal "rpc"; leaving the argument off gives us `npm start` (TUI).
+# tmux supplies the TTY the TUI needs; watch-bot.sh attaches to it.
+INNER_CMD="exec $(printf '%q' "$NODE") --import tsx ./src/index.ts"
 
 # pm2 restart must not leave an old pane polling Telegram. The Telegram
 # extension calls process.exit(0) on a 409 Conflict, which makes pm2 restart
@@ -62,7 +63,7 @@ tmux set-option -t "$SESSION" history-limit 50000
 tmux set-option -t "$SESSION" extended-keys on
 tmux set-option -t "$SESSION" extended-keys-format csi-u 2>/dev/null || true
 
-echo "vest-pi tmux session '${SESSION}' started (RPC mode)"
+echo "vest-pi tmux session '${SESSION}' started (TUI mode)"
 
 while tmux has-session -t "$SESSION" 2>/dev/null; do
 	dead="$(tmux list-panes -t "$SESSION" -F '#{pane_dead}' 2>/dev/null | head -n1 || true)"
