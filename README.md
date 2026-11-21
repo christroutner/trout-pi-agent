@@ -110,7 +110,7 @@ Optional pi-memory / qmd: see [pi-memory README](https://github.com/jayzeng/pi-m
 
 ## Dependency on `@earendil-works/pi-coding-agent`
 
-This repo depends on **`@earendil-works/pi-coding-agent@^0.74.0`** from npm (prebuilt `dist/`).
+This repo depends on **`@earendil-works/pi-coding-agent@1.6.0`** from npm (prebuilt `dist/`). Node **≥ 22.19** is required.
 
 To use a **local checkout** instead, in `package.json` set:
 

@@ -11,17 +11,17 @@
 		"start:dist": "node dist/index.js"
 	},
 	"engines": {
-		"node": ">=20.6.0"
+		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@earendil-works/pi-ai": "^0.85.1",
-		"@earendil-works/pi-coding-agent": "0.80.3",
-		"dotenv": "^16.4.5",
-		"mcp-interactive-terminal": "^1.0.9",
-		"tsx": "^4.19.2"
+		"@earendil-works/pi-ai": "1.6.0",
+		"@earendil-works/pi-coding-agent": "1.6.0",
+		"dotenv": "18.0.10",
+		"mcp-interactive-terminal": "1.0.9",
+		"tsx": "4.23.15"
 	},
 	"devDependencies": {
-		"@types/node": "^24.3.0",
-		"typescript": "^5.7.3"
+		"@types/node": "26.6.6",
+		"typescript": "7.0.2"
 	}
 }

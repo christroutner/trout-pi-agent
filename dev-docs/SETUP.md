@@ -11,9 +11,9 @@ sudo apt update
 sudo apt install -y curl ca-certificates git build-essential pkg-config
 ```
 
-## 2. Node.js (20.6 or newer)
+## 2. Node.js (22.19 or newer)
 
-Pi’s engine requirement is **Node ≥ 20.6**. Ubuntu’s default `nodejs` package may be too old; install a current LTS (example: **22.x**) via [NodeSource](https://github.com/nodesource/distributions):
+Pi 1.6’s engine requirement is **Node ≥ 22.19**. Ubuntu’s default `nodejs` package may be too old; install a current LTS (example: **22.x**) via [NodeSource](https://github.com/nodesource/distributions):
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
@@ -23,7 +23,7 @@ sudo apt install -y nodejs
 Confirm:
 
 ```bash
-node -v   # should show v22.x.x (or any v20.6+ / v22+)
+node -v   # should show v22.19.0 or newer
 npm -v
 ```
 
