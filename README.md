@@ -9,10 +9,9 @@ Clone or place these directories **next to each other** (siblings):
 | Directory | Role |
 |-----------|------|
 | `trout-pi-agent` | This app |
-| `pi-backup` | Agent project (`extensions/`, `skills/`, `memory/`, `config/AGENTS.md`) |
-| `pi-telegram-extension` | Telegram bridge (must be built: `dist/index.js`) |
-| `pi-memory` | Memory extension (`index.ts`) |
-| `pi-mcp-adapter` | MCP adapter (`index.ts`) — provides `mcp()` proxy tool for SSH terminals, databases, etc. |
+| [`agent-backup`](https://github.com/FullStack-Agents/agent-backup) | Agent project (`extensions/`, `skills/`, `memory/`, `config/AGENTS.md`). |
+| [`pi-telegram-extension`](https://github.com/FullStack-Agents/pi-telegram-extension) | Telegram bridge (must be built: `dist/index.js`) |
+| [`pi-memory`](https://github.com/jayzeng/pi-memory) | Memory extension (`index.ts`) |
 
 Override paths with environment variables (see [`.env.example`](.env.example)).
 

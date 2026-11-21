@@ -125,7 +125,7 @@ Edit `.env` with your editor and set at least:
 
 - `TELEGRAM_BOT_TOKEN` — from [@BotFather](https://t.me/BotFather) (required for the Telegram extension to start polling).
 
-Optional Telegram allowlist variables are documented in [`.env.example`](../.env.example) and in `pi-telegram-extension`’s dev docs.
+Optional Telegram allowlist, download, and transcription variables are documented in [`.env.example`](../.env.example) and in the pi-telegram-extension README.
 
 If repos are **not** siblings of `trout-pi-agent`, set absolute paths:
 
