@@ -9,10 +9,9 @@ Clone or place these directories **next to each other** (siblings):
 | Directory | Role |
 |-----------|------|
 | `trout-pi-agent` | This app |
-| `pi-backup` | Agent project (`extensions/`, `skills/`, `memory/`, `config/AGENTS.md`) |
-| `pi-telegram-extension` | Telegram bridge (must be built: `dist/index.js`) |
-| `pi-memory` | Memory extension (`index.ts`) |
-| `pi-mcp-adapter` | MCP adapter (`index.ts`) — provides `mcp()` proxy tool for SSH terminals, databases, etc. |
+| [`agent-backup`](https://github.com/FullStack-Agents/agent-backup) | Agent project (`extensions/`, `skills/`, `memory/`, `config/AGENTS.md`). |
+| [`pi-telegram-extension`](https://github.com/FullStack-Agents/pi-telegram-extension) | Telegram bridge (must be built: `dist/index.js`) |
+| [`pi-memory`](https://github.com/jayzeng/pi-memory) | Memory extension (`index.ts`) |
 
 Override paths with environment variables (see [`.env.example`](.env.example)).
 
@@ -110,7 +109,7 @@ Optional pi-memory / qmd: see [pi-memory README](https://github.com/jayzeng/pi-m
 
 ## Dependency on `@earendil-works/pi-coding-agent`
 
-This repo depends on **`@earendil-works/pi-coding-agent@^0.74.0`** from npm (prebuilt `dist/`).
+This repo depends on **`@earendil-works/pi-coding-agent@1.6.0`** from npm (prebuilt `dist/`). Node **≥ 22.19** is required.
 
 To use a **local checkout** instead, in `package.json` set:
 
